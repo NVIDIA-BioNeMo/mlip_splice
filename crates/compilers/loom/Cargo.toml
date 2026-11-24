@@ -1,0 +1,46 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+[package]
+name = "loom"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+license.workspace = true
+description = "The Loom primitive: a StableHLO lane program placed over a domain graph, expanded symbolically, partitioned into kernels, and rendered through gpu_ir into a recipe::Recipe of timed PTX candidates."
+
+[lib]
+name = "loom"
+crate-type = ["rlib"]
+
+[dependencies]
+chronicle.workspace = true
+cuda_driver.workspace = true
+domain_index.workspace = true
+gpu_ir.workspace = true
+rayon.workspace = true
+recipe.workspace = true
+xir.workspace = true
+xir_optimize.workspace = true
+
+[dev-dependencies]
+algebraic_real.workspace = true
+cuda_toolchain.workspace = true
+dhat.workspace = true
+kiln.workspace = true
+# The GPU tests share one device and the process-global cubin cache;
+# `#[serial(gpu)]` runs them one at a time.
+serial_test.workspace = true
+
+[lints]
+workspace = true
+
+# The measurement takes its kernel and size from the command line, so libtest's
+# harness would swallow them.
+[[bench]]
+name = "compile_cost"
+harness = false
+
+[[bench]]
+name = "profile_heap"
+harness = false

@@ -1,0 +1,23 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+[package]
+name = "reptheory_py"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+license.workspace = true
+description = "pyo3 binding for reptheory: O(3) irreps, tensor-product selection rules, and exact Clebsch-Gordan coefficients as AlgebraicReal."
+
+[lib]
+name = "reptheory_py"
+
+[dependencies]
+algebraic_real.workspace = true
+algebraic_real_py.workspace = true
+
+pyo3.workspace = true
+reptheory.workspace = true
+
+[lints]
+workspace = true

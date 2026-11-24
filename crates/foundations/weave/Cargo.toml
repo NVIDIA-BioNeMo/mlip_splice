@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+[package]
+name = "weave"
+description = "Structural algorithms over an SSA arena: what reads what, what a set of operations reaches, and what nothing holds."
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+version.workspace = true
+
+[lints]
+workspace = true
+
+[[bench]]
+name = "edit_cost"
+harness = false

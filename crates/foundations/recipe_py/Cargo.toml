@@ -1,0 +1,20 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+[package]
+name = "recipe_py"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+license.workspace = true
+description = "The canonical immutable Python surface for executable recipes."
+
+[lib]
+name = "recipe_py"
+
+[dependencies]
+pyo3.workspace = true
+recipe.workspace = true
+
+[lints]
+workspace = true

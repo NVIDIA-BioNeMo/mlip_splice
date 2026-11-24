@@ -1,0 +1,23 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+[package]
+name = "xir_py"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+license.workspace = true
+description = "Reusable PyO3 XIR builder and module classes."
+
+[lib]
+name = "xir_py"
+crate-type = ["rlib"]
+
+[dependencies]
+algebraic_real.workspace = true
+
+pyo3 = { workspace = true, features = ["num-bigint"] }
+xir.workspace = true
+
+[lints]
+workspace = true

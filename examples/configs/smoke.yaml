@@ -1,0 +1,29 @@
+# Tiny free-knot SPLICE model for smoke tests: 1 interaction layer, 4 species.
+defaults: {param_dtype: f32, precision: f32, out_dtype: f32, activation: silu}
+steps:
+- op: species_embedding
+  params: {num_species: 4, num_features: 32}
+- op: irreps_indexed_linear
+  params: {irreps_in: 32x0e, irreps_out: 32x0e, num_indices: 4, name: layer_0_skip}
+  out: skip_0
+- op: irreps_linear
+  params: {irreps_in: 32x0e, irreps_out: 16x0e}
+- op: message_passing
+  params: {irreps_in: 16x0e, irreps_out: 16x0e+16x1o+16x2e, epsilon: 0.25, r_max: 5.0, name: layer_0_tensor_product, l_max: 2}
+- op: irreps_linear
+  params: {irreps_in: 16x0e+16x1o+16x2e, irreps_out: 32x0e+32x1o+32x2e}
+- op: symmetric_contraction
+  params: {irreps_in: 32x0e+32x1o+32x2e, irreps_out: 32x0e, correlation: 2, num_species: 4, num_features: 32, name: layer_0_symmetric_contraction, scale: 1.0}
+- op: irreps_linear
+  params: {irreps_in: 32x0e, irreps_out: 32x0e}
+- op: irreps_add
+  in: {b: skip_0}
+- op: irreps_linear
+  params: {irreps_in: 32x0e, irreps_out: 0e, is_readout: true}
+  out: readout_0
+- op: energy_head
+  in: {node_feats: readout_0, atom_energies: atom_energies}
+  out: atom_energies
+- op: species_offsets
+  params: {num_species: 4}
+  out: atom_energies

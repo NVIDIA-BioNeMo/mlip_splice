@@ -1,0 +1,16 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+[package]
+name = "dlfind"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+license.workspace = true
+description = "Finds and opens shared libraries from explicit directories and platform loader search paths."
+
+[dependencies]
+libloading.workspace = true
+
+[lints]
+workspace = true

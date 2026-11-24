@@ -1,0 +1,21 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+[package]
+name = "reptheory"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+license.workspace = true
+description = "Representation theory of compact groups: Rep/Irrep traits, exact closed-form Clebsch-Gordan coefficients, and reduced permutation-symmetric tensor-product bases over real algebraic numbers."
+
+[dependencies]
+algebraic_real.workspace = true
+num-bigint.workspace = true
+num-integer.workspace = true
+num-rational.workspace = true
+num-traits.workspace = true
+rayon.workspace = true
+
+[lints]
+workspace = true

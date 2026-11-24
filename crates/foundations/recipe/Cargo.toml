@@ -1,0 +1,23 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+[package]
+name = "recipe"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+license.workspace = true
+description = "Defines the recipe format: the serializable, CUDA-Graph-shaped Recipe IR and its versioned wire layout. Payload bytes live in shared Blob views (heap or disk-backed); shared by recipe compilers and kiln."
+
+[dependencies]
+blake3.workspace = true
+memmap2.workspace = true
+smallvec.workspace = true
+tempfile.workspace = true
+zstd.workspace = true
+
+[dev-dependencies]
+trybuild.workspace = true
+
+[lints]
+workspace = true

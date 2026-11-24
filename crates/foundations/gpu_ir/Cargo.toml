@@ -1,0 +1,18 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+[package]
+name = "gpu_ir"
+description = "Typed device-level GPU programs, and the PTX they emit."
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+version.workspace = true
+
+[dependencies]
+fixedbitset.workspace = true
+index_vec.workspace = true
+weave.workspace = true
+
+[lints]
+workspace = true

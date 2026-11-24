@@ -1,0 +1,26 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+[package]
+name = "loom_py"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+license.workspace = true
+description = "pyo3 binding for the Loom StableHLO/XIR primitive."
+
+[lib]
+name = "loom_py"
+
+[dependencies]
+cuda_toolchain.workspace = true
+domain_index.workspace = true
+loom.workspace = true
+pyo3.workspace = true
+recipe.workspace = true
+recipe_py.workspace = true
+xir.workspace = true
+xir_py.workspace = true
+
+[lints]
+workspace = true

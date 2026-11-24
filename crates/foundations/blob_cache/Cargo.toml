@@ -1,0 +1,21 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+[package]
+name = "blob_cache"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+license.workspace = true
+description = "Content-addressed blob cache: memory + optional disk, with cost-based eviction. Keys and values are opaque bytes; knows nothing of what it stores."
+
+[lib]
+name = "blob_cache"
+crate-type = ["rlib"]
+
+[dependencies]
+blake3.workspace = true
+parking_lot.workspace = true
+
+[lints]
+workspace = true

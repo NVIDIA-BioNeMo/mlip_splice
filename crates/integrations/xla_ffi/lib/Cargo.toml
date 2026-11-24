@@ -1,0 +1,20 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+[package]
+name = "xla_ffi"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+license.workspace = true
+description = "Safe Rust wrappers over the XLA Foreign Function Interface. Pair with `#[xla_ffi::handler]` to define custom call handlers."
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+xla_ffi_macros.workspace = true
+xla_ffi_sys.workspace = true
+
+[lints]
+workspace = true

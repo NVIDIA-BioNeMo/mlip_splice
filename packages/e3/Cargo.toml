@@ -1,0 +1,20 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+[package]
+name = "e3_python"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+license.workspace = true
+
+[lib]
+name = "e3_python"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3.workspace = true
+reptheory_py.workspace = true
+
+[lints]
+workspace = true

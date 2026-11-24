@@ -1,0 +1,42 @@
+// The caller half of a two-module compile unit: it declares the scale
+// function without defining it, so this text alone cannot be assembled into a
+// runnable image.
+.version 7.0
+.target sm_52
+.address_size 64
+
+.extern .func (.param .f32 func_retval0) scaled_value (.param .f32 scaled_value_param_0);
+
+.visible .entry linked_fill(
+    .param .u64 linked_fill_param_0,
+    .param .f32 linked_fill_param_1,
+    .param .u32 linked_fill_param_2
+)
+{
+    .reg .pred %p1;
+    .reg .f32 %f<3>;
+    .reg .b32 %r<6>;
+    .reg .b64 %rd<5>;
+    ld.param.u64 %rd1, [linked_fill_param_0];
+    ld.param.f32 %f1, [linked_fill_param_1];
+    ld.param.u32 %r1, [linked_fill_param_2];
+    {
+        .param .f32 param0;
+        .param .f32 retval0;
+        st.param.f32 [param0], %f1;
+        call.uni (retval0), scaled_value, (param0);
+        ld.param.f32 %f2, [retval0];
+    }
+    mov.u32 %r2, %ntid.x;
+    mov.u32 %r3, %ctaid.x;
+    mov.u32 %r4, %tid.x;
+    mad.lo.s32 %r5, %r3, %r2, %r4;
+    setp.ge.u32 %p1, %r5, %r1;
+    @%p1 bra $L_DONE;
+    cvta.to.global.u64 %rd2, %rd1;
+    mul.wide.u32 %rd3, %r5, 4;
+    add.s64 %rd4, %rd2, %rd3;
+    st.global.f32 [%rd4], %f2;
+$L_DONE:
+    ret;
+}

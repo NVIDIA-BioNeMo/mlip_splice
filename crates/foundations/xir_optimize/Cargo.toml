@@ -1,0 +1,25 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+[package]
+name = "xir_optimize"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+license.workspace = true
+description = "Deterministic, verified whole-module optimization pipelines for xir, including exact-polynomial and finite-map rewrites."
+
+[lib]
+name = "xir_optimize"
+crate-type = ["rlib"]
+
+[dependencies]
+algebraic_real.workspace = true
+domain_index.workspace = true
+egglog.workspace = true
+rayon.workspace = true
+smallvec.workspace = true
+xir.workspace = true
+
+[lints]
+workspace = true

@@ -1,0 +1,64 @@
+# SPLICE L-type: free-knot channelwise MP, CW width 64 / trunk width 256.
+# Internal irreps up to 2e, CW output up to 3o. 86 species, r_max 6.0.
+defaults: {param_dtype: f32, precision: f32, out_dtype: f32, activation: silu}
+steps:
+- op: species_embedding
+  params: {num_species: 86, num_features: 256}
+- op: irreps_indexed_linear
+  params: {irreps_in: 256x0e, irreps_out: 256x0e+256x1o+256x2e, num_indices: 86, name: layer_0_skip}
+  out: skip_0
+- op: irreps_linear
+  annotations: {lr_mult: 0.25}
+  params: {irreps_in: 256x0e, irreps_out: 64x0e}
+- op: message_passing
+  params: {irreps_in: 64x0e, irreps_out: 64x0e+64x1o+64x2e+64x3o, epsilon: 0.125, r_max: 6.0, name: layer_0_tensor_product, l_max: 3}
+- op: irreps_linear
+  annotations: {lr_mult: 0.25}
+  params: {irreps_in: 64x0e+64x1o+64x2e+64x3o, irreps_out: 256x0e+256x1o+256x2e+256x3o}
+- op: symmetric_contraction
+  annotations: {lr_mult: 4.0}
+  params: {irreps_in: 256x0e+256x1o+256x2e+256x3o, irreps_out: 256x0e+256x1o+256x2e, correlation: 3, num_species: 86, num_features: 256, name: layer_0_symmetric_contraction, scale: 1.0}
+- op: irreps_linear
+  params: {irreps_in: 256x0e+256x1o+256x2e, irreps_out: 256x0e+256x1o+256x2e}
+- op: irreps_add
+  in: {b: skip_0}
+- op: irreps_linear
+  annotations: {lr_mult: 0.25}
+  params: {irreps_in: 256x0e+256x1o+256x2e, irreps_out: 0e, is_readout: true}
+  out: readout_0
+- op: energy_head
+  in: {node_feats: readout_0, atom_energies: atom_energies}
+  out: atom_energies
+- op: irreps_indexed_linear
+  params: {irreps_in: 256x0e+256x1o+256x2e, irreps_out: 256x0e, num_indices: 86, name: layer_1_skip}
+  out: skip_1
+- op: irreps_linear
+  params: {irreps_in: 256x0e+256x1o+256x2e, irreps_out: 64x0e+64x1o+64x2e}
+- op: message_passing
+  params: {irreps_in: 64x0e+64x1o+64x2e, irreps_out: 64x0e+64x1o+64x2e+64x3o, epsilon: 0.125, r_max: 6.0, name: layer_1_tensor_product, l_max: 3}
+- op: irreps_linear
+  params: {irreps_in: 192x0e+320x1o+320x2e+256x3o, irreps_out: 256x0e+256x1o+256x2e+256x3o}
+- op: symmetric_contraction
+  annotations: {lr_mult: 4.0}
+  params: {irreps_in: 256x0e+256x1o+256x2e+256x3o, irreps_out: 256x0e, correlation: 3, num_species: 86, num_features: 256, name: layer_1_symmetric_contraction, scale: 1.0}
+- op: irreps_linear
+  params: {irreps_in: 256x0e, irreps_out: 256x0e}
+- op: irreps_add
+  in: {b: skip_1}
+- op: irreps_linear
+  params: {irreps_in: 256x0e, irreps_out: 16x0e}
+  out: readmlp_1
+- op: scalar_activation
+  params: {}
+  in: readmlp_1
+  out: readact_1
+- op: irreps_linear
+  params: {irreps_in: 16x0e, irreps_out: 0e, is_readout: true}
+  in: readact_1
+  out: readout_1
+- op: energy_head
+  in: {node_feats: readout_1, atom_energies: atom_energies}
+  out: atom_energies
+- op: species_offsets
+  params: {num_species: 86}
+  out: atom_energies

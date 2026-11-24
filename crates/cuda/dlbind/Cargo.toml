@@ -1,0 +1,16 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+[package]
+name = "dlbind"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+license.workspace = true
+description = "Defines typed dynamic-library bindings from symbol declarations and resolves them through libloading."
+
+[dependencies]
+libloading.workspace = true
+
+[lints]
+workspace = true

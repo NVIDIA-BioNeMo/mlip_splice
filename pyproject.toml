@@ -1,0 +1,20 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+[tool.uv.workspace]
+members = ["packages/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "packages/*/tests"]
+markers = ["extensive: full-coverage tests", "capped_autotune: cap compiler search"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "NPY", "RUF"]
+ignore = ["RUF002", "RUF003"]  # scientific docstrings use x / ~ / Angstrom deliberately
+
+[tool.ruff.format]
+quote-style = "double"

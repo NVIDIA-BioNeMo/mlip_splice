@@ -1,0 +1,25 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+[package]
+name = "cuda_toolchain"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+license.workspace = true
+description = "Shared CUDA compiler configuration, assembly, resource inspection, and content-addressed caching."
+
+[lib]
+name = "cuda_toolchain"
+crate-type = ["rlib"]
+
+[dependencies]
+blake3.workspace = true
+blob_cache.workspace = true
+cuda_driver.workspace = true
+cuda_jit.workspace = true
+parking_lot.workspace = true
+rayon.workspace = true
+
+[lints]
+workspace = true

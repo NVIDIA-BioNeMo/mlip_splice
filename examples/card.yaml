@@ -1,0 +1,27 @@
+species:
+  H: 0
+  C: 1
+  N: 2
+  O: 3
+  F: 4
+  P: 5
+  S: 6
+  Cl: 7
+cutoff: 5.0
+avg_num_neighbors: 4.127659574468085
+offsets:
+  default: lstsq
+  lstsq:
+  - -16.27113914489746
+  - -1033.3905029296875
+  - -1488.0294189453125
+  - -2045.16455078125
+  - -2715.785888671875
+  - -9285.2236328125
+  - -10831.701171875
+  - -12520.8837890625
+outputs:
+- E
+- F
+notes:
+  dataset: 200 small molecules generated with PySCF at wB97X/def2-SVP; see packages/splice/scripts/make_example_data.py

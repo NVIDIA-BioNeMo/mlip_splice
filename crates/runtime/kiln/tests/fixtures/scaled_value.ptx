@@ -1,0 +1,16 @@
+// The callee half of a two-module compile unit: a `.func` and no entry at
+// all, so this text alone cannot be launched. It doubles what it is handed.
+.version 7.0
+.target sm_52
+.address_size 64
+
+.visible .func (.param .f32 func_retval0) scaled_value (
+    .param .f32 scaled_value_param_0
+)
+{
+    .reg .f32 %f<3>;
+    ld.param.f32 %f1, [scaled_value_param_0];
+    mul.f32 %f2, %f1, 0f40000000;
+    st.param.f32 [func_retval0], %f2;
+    ret;
+}

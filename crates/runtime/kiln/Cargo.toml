@@ -1,0 +1,21 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+[package]
+name = "kiln"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+license.workspace = true
+description = "Realizer and executor for the recipe format: gives every module one loadable image (reusing a native one or assembling its PTX through cuda_toolchain), times each Choice on-device, emits the realized artifact, and replays it many times through a persistent cuGraph ring. No NVRTC and no kernel codegen — those belong to recipe compilers."
+
+[dependencies]
+blake3.workspace = true
+blob_cache.workspace = true
+chronicle.workspace = true
+cuda_driver.workspace = true
+cuda_toolchain.workspace = true
+recipe.workspace = true
+
+[lints]
+workspace = true

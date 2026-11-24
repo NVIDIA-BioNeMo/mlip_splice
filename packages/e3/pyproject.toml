@@ -1,0 +1,27 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+[build-system]
+build-backend = "maturin"
+requires = ["maturin>=1.9,<2.0"]
+
+[project]
+name = "e3"
+version = "0.1.0"
+description = "Exact representations and equivariant tensor bases"
+requires-python = ">=3.12"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+dependencies = ['algebraic-real==0.1.0']
+
+[project.optional-dependencies]
+jax = ["algebraic-real[jax]==0.1.0", "jax>=0.8.0", "numpy"]
+
+[tool.maturin]
+manifest-path = "Cargo.toml"
+module-name = "e3._native"
+python-source = "python"
+features = ["pyo3/extension-module"]
+
+[tool.uv.sources]
+algebraic-real = { workspace = true }

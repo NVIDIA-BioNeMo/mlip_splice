@@ -1,0 +1,34 @@
+# Formatting gate: one consistent style across the repo.
+# Install once with `pre-commit install`; run on everything with
+# `pre-commit run --all-files`. Formatters only — the deeper lint backlog
+# (ruff check's E402/F401/…) is deliberately not a commit gate yet.
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.16.4
+    hooks:
+      # Import order is part of a consistent layout, so fix it; then format.
+      - id: ruff
+        name: ruff import sort
+        args: [--select, I, --fix]
+      - id: ruff-format
+  - repo: local
+    hooks:
+      - id: cargo-fmt
+        name: cargo fmt
+        entry: cargo fmt --all --
+        language: system
+        types: [rust]
+        pass_filenames: false
+      - id: cargo-sort
+        name: cargo sort
+        entry: cargo sort --workspace --grouped
+        language: system
+        files: Cargo\.toml$
+        pass_filenames: false
+      - id: spdx-header
+        name: SPDX header present
+        entry: python3 .hooks/check_spdx_headers.py
+        language: system
+        pass_filenames: true
+        types_or: [rust, python, toml, c, c++, cuda]
+        exclude: '^crates/integrations/xla_ffi/sys/vendor/'

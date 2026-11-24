@@ -1,0 +1,28 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+[package]
+name = "cuda_jit"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+license.workspace = true
+description = "JIT CUDA toolchain bridge: a caller-owned CudaJit that dlopens libnvrtc + libnvJitLink from configured dirs and does raw NVRTC compiles (plaintext or ciphertext source → cubin or LTO-IR) with nvJitLink LTO-IR linking. Stateless — caching and search-path config are the caller's. Produces the bytes that kiln later runs."
+
+[lib]
+name = "cuda_jit"
+crate-type = ["rlib"]
+
+[dependencies]
+dlbind.workspace = true
+dlfind.workspace = true
+libloading.workspace = true
+
+[dev-dependencies]
+cuda_driver.workspace = true
+kiln.workspace = true
+recipe.workspace = true
+serial_test.workspace = true
+
+[lints]
+workspace = true

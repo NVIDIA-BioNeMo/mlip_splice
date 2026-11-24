@@ -1,0 +1,54 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+[build-system]
+build-backend = "uv_build"
+requires = ["uv_build>=0.8,<1"]
+
+[project]
+name = "splice"
+version = "0.1.0"
+description = "SPLine Interatomic Cluster Expansion (SPLICE)"
+requires-python = ">=3.12"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [{name = "NVIDIA Corporation"}]
+dependencies = [
+    "loom==0.1.0",
+    "e3[jax]==0.1.0",
+    "algebraic-real[jax]==0.1.0",
+    "jax>=0.8.0",
+    "equinox",
+    "optax",
+    "cuequivariance",
+    "cuequivariance-jax",
+    "einops",
+    "numpy",
+    "pyyaml",
+]
+
+[project.optional-dependencies]
+cuda13 = [
+    "jax[cuda13]",
+    "nvidia-cuda-nvrtc>=13,<14",
+    "nvidia-nvjitlink>=13,<14",
+    "nvidia-cuda-runtime>=13,<14",
+    "nvidia-cuda-cccl>=13,<14",
+    # The cuBLAS grouped GEMM behind indexed_linear.
+    "cuequivariance-ops-jax-cu13",
+]
+dev = ["maturin>=1.9,<2.0", "pytest>=7", "ruff>=0.8", "pybind11>=2.12", "pre-commit>=4"]
+# Molecular dynamics. The CUDA kernels behind `splice.md` are built separately
+# with `make -C packages/splice/python/splice/md/_ops_src`; these are the Python-side requirements.
+md = ["cupy-cuda13x", "ase"]
+data = ["ase", "matscipy"]
+
+[tool.uv.sources]
+algebraic-real = { workspace = true }
+e3 = { workspace = true }
+loom = { workspace = true }
+
+[tool.uv.build-backend]
+module-root = "python"
+module-name = "splice"
+source-exclude = ["python/splice/md/_ops_src/.obj/**"]

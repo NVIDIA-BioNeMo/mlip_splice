@@ -1,0 +1,104 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+[workspace]
+resolver = "2"
+default-members = ["packages/algebraic_real", "packages/e3", "packages/loom"]
+members = [
+    "crates/compilers/*",
+    "crates/cuda/*",
+    "crates/foundations/*",
+    "crates/integrations/xla_ffi/*",
+    "crates/runtime/*",
+    "packages/algebraic_real",
+    "packages/e3",
+    "packages/loom",
+]
+
+[workspace.package]
+edition = "2024"
+license = "Apache-2.0"
+publish = false
+version = "0.1.0"
+
+[workspace.dependencies]
+# Workspace crates
+algebraic_real = { path = "crates/foundations/algebraic_real" }
+algebraic_real_py = { path = "crates/foundations/algebraic_real_py" }
+blob_cache = { path = "crates/foundations/blob_cache" }
+chronicle = { path = "crates/foundations/chronicle" }
+cuda_driver = { path = "crates/cuda/cuda_driver" }
+cuda_jit = { path = "crates/cuda/cuda_jit" }
+cuda_toolchain = { path = "crates/cuda/cuda_toolchain" }
+cuda_toolchain_py = { path = "crates/cuda/cuda_toolchain_py" }
+dlbind = { path = "crates/cuda/dlbind" }
+dlfind = { path = "crates/cuda/dlfind" }
+domain_index = { path = "crates/foundations/domain_index" }
+gpu_ir = { path = "crates/foundations/gpu_ir" }
+kiln = { path = "crates/runtime/kiln" }
+kiln_py = { path = "crates/runtime/kiln_py" }
+loom = { path = "crates/compilers/loom" }
+loom_py = { path = "crates/compilers/loom_py" }
+recipe = { path = "crates/foundations/recipe" }
+recipe_py = { path = "crates/foundations/recipe_py" }
+reptheory = { path = "crates/foundations/reptheory" }
+reptheory_py = { path = "crates/foundations/reptheory_py" }
+weave = { path = "crates/foundations/weave" }
+xir = { path = "crates/foundations/xir" }
+xir_optimize = { path = "crates/foundations/xir_optimize" }
+xir_py = { path = "crates/foundations/xir_py" }
+xla_ffi = { path = "crates/integrations/xla_ffi/lib" }
+xla_ffi_macros = { path = "crates/integrations/xla_ffi/macros" }
+xla_ffi_sys = { path = "crates/integrations/xla_ffi/sys" }
+
+# External crates
+bindgen = "0.72"
+blake3 = "1"
+dhat = "0.3"
+egglog = { git = "https://github.com/egraphs-good/egglog.git", rev = "90635860397ce710f8c0a4eeb04154a8ebc3ac05", default-features = false }
+fixedbitset = "0.5"
+index_vec = "0.1"
+libloading = "0.8"
+memmap2 = "0.9"
+num-bigint = "0.4"
+num-integer = "0.1"
+num-rational = "0.4"
+num-traits = "0.2"
+parking_lot = "0.12"
+proc-macro2 = "1"
+proptest = { version = "1", default-features = false, features = ["std"] }
+pyo3 = { version = "0.22", features = ["abi3-py311"] }
+quote = "1"
+rayon = "1"
+serial_test = "3"
+smallvec = "1"
+syn = "2"
+tempfile = "3"
+trybuild = "1.0"
+zstd = "0.13"
+
+[workspace.lints.rust]
+dead_code = "deny"
+unreachable_pub = "deny"
+
+[workspace.lints.clippy]
+missing_safety_doc = "allow"
+
+[profile.profiling]
+inherits = "release"
+debug = 1
+strip = "none"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = "symbols"
+
+[profile.dev.package.algebraic_real]
+opt-level = 3
+[profile.dev.package.num-bigint]
+opt-level = 3
+[profile.dev.package.num-rational]
+opt-level = 3
+[profile.dev.package.num-integer]
+opt-level = 3

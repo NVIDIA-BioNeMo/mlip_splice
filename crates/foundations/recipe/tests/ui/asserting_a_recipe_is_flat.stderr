@@ -1,0 +1,29 @@
+error[E0599]: no associated function or constant named `assume_flat` found for struct `FlatRecipe<F>` in the current scope
+  --> tests/ui/asserting_a_recipe_is_flat.rs:11:17
+   |
+11 |     FlatRecipe::assume_flat(held)
+   |                 ^^^^^^^^^^^ associated function or constant not found in `FlatRecipe<_>`
+   |
+note: if you're trying to build a new `FlatRecipe<_>`, consider using `FlatRecipe::<F>::new` which returns `Result<FlatRecipe<_>, RecipeError<<_ as Computation>::Refusal>>`
+  --> src/algebra/data.rs
+   |
+   |     pub fn new(recipe: Recipe<F>) -> Result<Self, RecipeError<F::Refusal>> {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0423]: expected function, tuple struct or tuple variant, found type alias `FlatRecipe`
+  --> tests/ui/asserting_a_recipe_is_flat.rs:15:5
+   |
+15 |     FlatRecipe(held)
+   |     ^^^^^^^^^^ not a function, tuple struct or tuple variant
+
+error[E0616]: field `0` of struct `FlatRecipe` is private
+  --> tests/ui/asserting_a_recipe_is_flat.rs:19:10
+   |
+19 |     held.0 = held.0.clone();
+   |          ^ private field
+
+error[E0616]: field `0` of struct `FlatRecipe` is private
+  --> tests/ui/asserting_a_recipe_is_flat.rs:19:19
+   |
+19 |     held.0 = held.0.clone();
+   |                   ^ private field

@@ -1,0 +1,25 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+[package]
+name = "xir"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+license.workspace = true
+description = "A Rust-native, static-shaped, layout-free SSA tensor IR with an open operation registry, builder, analysis, verifier, scalarizer, and text printer."
+
+[lib]
+name = "xir"
+crate-type = ["rlib"]
+
+[dependencies]
+algebraic_real.workspace = true
+domain_index.workspace = true
+num-bigint.workspace = true
+num-rational.workspace = true
+smallvec.workspace = true
+weave.workspace = true
+
+[lints]
+workspace = true

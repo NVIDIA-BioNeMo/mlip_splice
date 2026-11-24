@@ -1,0 +1,21 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+[package]
+name = "cuda_driver"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+license.workspace = true
+description = "Loads the CUDA driver API dynamically and exposes its typed functions, handles, flags, and device queries."
+
+[lib]
+name = "cuda_driver"
+
+[dependencies]
+dlbind.workspace = true
+dlfind.workspace = true
+libloading.workspace = true
+
+[lints]
+workspace = true

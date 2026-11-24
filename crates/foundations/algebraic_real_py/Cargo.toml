@@ -1,0 +1,24 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+[package]
+name = "algebraic_real_py"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+license.workspace = true
+description = "Python bindings for exact real algebraic arithmetic, comparison, roots, rational powers, hashing, rounding, and versioned serialization."
+
+[lib]
+name = "algebraic_real_py"
+crate-type = ["rlib"]
+
+[dependencies]
+algebraic_real.workspace = true
+num-bigint.workspace = true
+num-rational.workspace = true
+num-traits.workspace = true
+pyo3 = { workspace = true, features = ["num-bigint"] }
+
+[lints]
+workspace = true
